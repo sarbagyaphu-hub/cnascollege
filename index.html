@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>College of National Academic Square (CNAS)</title>
+  <meta name="description" content="Official website concept for College of National Academic Square (CNAS), Kathmandu Metro-32, Bagmati, Nepal." />
+  <style>
+    :root{
+      --orange:#f58220;
+      --orange-dark:#d96b0c;
+      --blue:#0f4c97;
+      --blue-deep:#082f63;
+      --white:#ffffff;
+      --light:#f5f8fc;
+      --text:#1b2430;
+      --muted:#5c6b7b;
+      --shadow:0 16px 40px rgba(9, 37, 74, 0.12);
+      --radius:22px;
+      --radius-sm:14px;
+      --transition:all .35s ease;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:linear-gradient(180deg,#f9fbff 0%,#eef4fb 100%);
+      overflow-x:hidden;
+    }
+
+    img{max-width:100%;display:block}
+    a{text-decoration:none;color:inherit}
+    ul{list-style:none}
+
+    .container{width:min(1180px,92%);margin:auto}
+    .section{padding:84px 0}
+    .section-title{
+      font-size:clamp(1.9rem,4vw,3rem);
+      color:var(--blue-deep);
+      margin-bottom:14px;
+      line-height:1.15;
+    }
+    .section-subtitle{
+      color:var(--muted);
+      max-width:820px;
+      font-size:1.05rem;
+      line-height:1.75;
+      margin-bottom:32px;
+    }
+    .pill{
+      display:inline-block;
+      padding:10px 16px;
+      border-radius:999px;
+      background:rgba(245,130,32,.12);
+      color:var(--orange-dark);
+      font-weight:700;
+      font-size:.92rem;
+      letter-spacing:.3px;
+      margin-bottom:16px;
+    }
+
+    /* Welcome Screen */
+    .welcome-screen{
+      position:fixed;
+      inset:0;
+      z-index:9999;
+      background:linear-gradient(135deg,var(--blue-deep),var(--blue),var(--orange));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      transition:opacity .9s ease, visibility .9s ease;
+    }
+    .welcome-screen.hidden{
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
+    }
+    .welcome-screen::before,
+    .welcome-screen::after{
+      content:"";
+      position:absolute;
+      width:380px;
+      height:380px;
+      border-radius:50%;
+      background:rgba(255,255,255,.08);
+      filter:blur(4px);
+      animation:floatBlob 8s infinite ease-in-out;
+    }
+    .welcome-screen::before{top:-90px;left:-70px}
+    .welcome-screen::after{bottom:-120px;right:-60px;animation-delay:1.6s}
+    .welcome-content{
+      text-align:center;
+      color:#fff;
+      padding:24px;
+      position:relative;
+      z-index:2;
+      animation:zoomIn 1s ease;
+    }
+    .welcome-logo{
+      width:120px;
+      height:120px;
+      margin:0 auto 22px;
+      border-radius:50%;
+      padding:10px;
+      background:rgba(255,255,255,.15);
+      border:2px solid rgba(255,255,255,.25);
+      box-shadow:0 12px 30px rgba(0,0,0,.18);
+      backdrop-filter:blur(6px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .welcome-logo img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      border-radius:50%;
+    }
+    .welcome-content h1{
+      font-size:clamp(2rem,6vw,4.4rem);
+      line-height:1.05;
+      margin-bottom:10px;
+      font-weight:800;
+      letter-spacing:.5px;
+    }
+    .welcome-content p{
+      font-size:1.05rem;
+      max-width:720px;
+      margin:0 auto;
+      line-height:1.8;
+      color:rgba(255,255,255,.92);
+    }
+
+    /* Header */
+    header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(255,255,255,.9);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(15,76,151,.08);
+    }
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      min-height:78px;
+      gap:18px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+    .brand-logo{
+      width:52px;
+      height:52px;
+      border-radius:14px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      border:2px solid rgba(245,130,32,.2);
+      flex-shrink:0;
+    }
+    .brand-logo img{width:100%;height:100%;object-fit:cover}
+    .brand-text h2{
+      font-size:1.15rem;
+      color:var(--blue-deep);
+      margin-bottom:2px;
+    }
+    .brand-text span{
+      color:var(--muted);
+      font-size:.92rem;
+    }
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:20px;
+      font-weight:700;
+      color:var(--blue-deep);
+    }
+    .nav-links a{
+      position:relative;
+      padding:8px 0;
+    }
+    .nav-links a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:0;
+      width:0;
+      height:2px;
+      background:var(--orange);
+      transition:var(--transition);
+    }
+    .nav-links a:hover::after{width:100%}
+    .nav-cta{
+      padding:12px 18px;
+      border-radius:12px;
+      background:linear-gradient(135deg,var(--orange),#ff9f45);
+      color:#fff;
+      font-weight:800;
+      box-shadow:0 12px 25px rgba(245,130,32,.22);
+    }
+    .menu-btn{
+      display:none;
+      border:none;
+      background:var(--blue-deep);
+      color:#fff;
+      padding:10px 12px;
+      border-radius:12px;
+      font-size:1.1rem;
+      cursor:pointer;
+    }
+
+    /* Hero */
+    .hero{
+      position:relative;
+      overflow:hidden;
+      padding:34px 0 64px;
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      right:-130px;
+      top:-40px;
+      width:340px;
+      height:340px;
+      background:radial-gradient(circle, rgba(245,130,32,.25), transparent 68%);
+      border-radius:50%;
+    }
+    .hero-wrap{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:34px;
+      align-items:center;
+      min-height:calc(100vh - 110px);
+    }
+    .hero-text h1{
+      font-size:clamp(2.4rem,5vw,4.9rem);
+      line-height:1.05;
+      color:var(--blue-deep);
+      margin-bottom:18px;
+      font-weight:900;
+    }
+    .hero-text h1 span{color:var(--orange)}
+    .hero-text p{
+      font-size:1.08rem;
+      color:var(--muted);
+      line-height:1.85;
+      margin-bottom:24px;
+      max-width:720px;
+    }
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-bottom:28px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:14px 20px;
+      border-radius:14px;
+      font-weight:800;
+      transition:var(--transition);
+    }
+    .btn-primary{
+      background:linear-gradient(135deg,var(--blue),var(--blue-deep));
+      color:#fff;
+      box-shadow:var(--shadow);
+    }
+    .btn-primary:hover{transform:translateY(-3px)}
+    .btn-secondary{
+      background:#fff;
+      color:var(--blue-deep);
+      border:1px solid rgba(15,76,151,.12);
+      box-shadow:0 8px 18px rgba(15,76,151,.08);
+    }
+    .btn-secondary:hover{transform:translateY(-3px)}
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:16px;
+    }
+    .stat-card{
+      background:#fff;
+      border-radius:18px;
+      padding:20px 16px;
+      box-shadow:var(--shadow);
+      border:1px solid rgba(15,76,151,.06);
+      text-align:center;
+    }
+    .stat-card h3{
+      color:var(--orange);
+      font-size:1.9rem;
+      margin-bottom:6px;
+    }
+    .stat-card p{
+      color:var(--muted);
+      font-weight:700;
+      line-height:1.5;
+      font-size:.95rem;
+    }
+
+    .hero-visual{
+      position:relative;
+    }
+    .slideshow-card{
+      background:#fff;
+      border-radius:28px;
+      box-shadow:var(--shadow);
+      padding:14px;
+      border:1px solid rgba(15,76,151,.06);
+      position:relative;
+      overflow:hidden;
+    }
+    .slideshow{
+      position:relative;
+      height:560px;
+      border-radius:22px;
+      overflow:hidden;
+    }
+    .slide{
+      position:absolute;
+      inset:0;
+      opacity:0;
+      transform:scale(1.06);
+      transition:opacity .9s ease, transform 1.2s ease;
+    }
+    .slide.active{
+      opacity:1;
+      transform:scale(1);
+    }
+    .slide img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    .slide-overlay{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(8,47,99,.1) 0%, rgba(8,47,99,.78) 100%);
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      padding:28px;
+      color:#fff;
+    }
+    .slide-overlay h3{
+      font-size:1.6rem;
+      margin-bottom:8px;
+    }
+    .slide-overlay p{
+      line-height:1.75;
+      color:rgba(255,255,255,.93);
+    }
+    .dots{
+      position:absolute;
+      bottom:22px;
+      right:22px;
+      display:flex;
+      gap:8px;
+      z-index:4;
+    }
+    .dot{
+      width:12px;
+      height:12px;
+      border-radius:50%;
+      background:rgba(255,255,255,.45);
+      border:2px solid rgba(255,255,255,.6);
+      cursor:pointer;
+      transition:var(--transition);
+    }
+    .dot.active{background:var(--orange);transform:scale(1.1)}
+
+    /* Info Cards */
+    .info-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:22px;
+      margin-top:26px;
+    }
+    .info-card{
+      background:#fff;
+      border-radius:var(--radius);
+      padding:28px;
+      box-shadow:var(--shadow);
+      border-top:5px solid var(--orange);
+    }
+    .info-card h3{color:var(--blue-deep);margin-bottom:14px;font-size:1.3rem}
+    .info-card p{color:var(--muted);line-height:1.8}
+
+    /* Course Sections */
+    .courses-wrap{display:grid;gap:24px}
+    .course-block{
+      background:#fff;
+      border-radius:26px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      border:1px solid rgba(15,76,151,.07);
+    }
+    .course-head{
+      background:linear-gradient(135deg,var(--blue-deep),var(--blue));
+      color:#fff;
+      padding:26px 28px;
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+    }
+    .course-head h3{font-size:1.65rem}
+    .course-head span{
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.16);
+      padding:10px 16px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:.92rem;
+    }
+    .course-content{padding:28px}
+    .course-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:18px;
+    }
+    .course-card{
+      background:linear-gradient(180deg,#ffffff 0%, #f7fbff 100%);
+      border-radius:20px;
+      padding:22px;
+      border:1px solid rgba(15,76,151,.08);
+      transition:var(--transition);
+    }
+    .course-card:hover{transform:translateY(-5px);box-shadow:0 16px 30px rgba(15,76,151,.1)}
+    .course-card h4{
+      color:var(--blue-deep);
+      font-size:1.2rem;
+      margin-bottom:10px;
+    }
+    .course-card p{
+      color:var(--muted);
+      line-height:1.75;
+      font-size:.98rem;
+      margin-bottom:10px;
+    }
+    .tag{
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(245,130,32,.12);
+      color:var(--orange-dark);
+      font-size:.83rem;
+      font-weight:800;
+      margin:6px 6px 0 0;
+    }
+
+    /* Leadership */
+    .leaders{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:24px;
+    }
+    .leader-card{
+      background:#fff;
+      border-radius:28px;
+      padding:34px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .leader-card::before{
+      content:"“";
+      position:absolute;
+      right:20px;
+      top:0;
+      font-size:6rem;
+      color:rgba(245,130,32,.12);
+      font-family:Georgia, serif;
+      line-height:1;
+    }
+    .leader-card h3{font-size:1.4rem;color:var(--blue-deep);margin-bottom:10px}
+    .leader-card p{color:var(--muted);line-height:1.9;margin-bottom:18px}
+    .leader-sign{font-weight:800;color:var(--orange-dark);line-height:1.6}
+
+    /* Admission */
+    .admission-grid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:24px;
+      align-items:stretch;
+    }
+    .admission-card,
+    .contact-card{
+      background:#fff;
+      border-radius:28px;
+      box-shadow:var(--shadow);
+      padding:32px;
+    }
+    .admission-list li,
+    .contact-list li{
+      display:flex;
+      gap:12px;
+      margin-bottom:16px;
+      color:var(--muted);
+      line-height:1.75;
+    }
+    .icon{
+      width:34px;
+      height:34px;
+      min-width:34px;
+      border-radius:12px;
+      background:rgba(15,76,151,.08);
+      color:var(--blue);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:800;
+    }
+    .qr-box{
+      margin-top:20px;
+      background:linear-gradient(135deg, rgba(245,130,32,.1), rgba(15,76,151,.08));
+      border:2px dashed rgba(15,76,151,.18);
+      border-radius:24px;
+      padding:24px;
+      text-align:center;
+    }
+    .qr-box img{
+      width:180px;
+      height:180px;
+      object-fit:cover;
+      margin:0 auto 14px;
+      border-radius:18px;
+      background:#fff;
+      padding:10px;
+    }
+    .qr-box p{color:var(--muted);line-height:1.7}
+
+    /* Footer */
+    footer{
+      background:linear-gradient(135deg,var(--blue-deep),var(--blue));
+      color:#fff;
+      padding:36px 0 24px;
+      margin-top:40px;
+    }
+    .footer-wrap{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:24px;
+      align-items:center;
+    }
+    .footer-wrap p{
+      color:rgba(255,255,255,.88);
+      line-height:1.8;
+    }
+    .footer-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+    .footer-links a{
+      padding:10px 14px;
+      background:rgba(255,255,255,.12);
+      border-radius:12px;
+      font-weight:700;
+    }
+
+    /* Back to top */
+    .back-top{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      width:48px;
+      height:48px;
+      border:none;
+      border-radius:50%;
+      background:linear-gradient(135deg,var(--orange),#ff9f45);
+      color:#fff;
+      box-shadow:0 15px 25px rgba(245,130,32,.28);
+      cursor:pointer;
+      display:none;
+      z-index:999;
+      font-size:1.15rem;
+      font-weight:800;
+    }
+    .back-top.show{display:block}
+
+    @keyframes floatBlob{
+      0%,100%{transform:translateY(0) translateX(0)}
+      50%{transform:translateY(28px) translateX(20px)}
+    }
+    @keyframes zoomIn{
+      from{opacity:0;transform:scale(.88)}
+      to{opacity:1;transform:scale(1)}
+    }
+    @keyframes fadeUp{
+      from{opacity:0;transform:translateY(28px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+    .reveal{opacity:0;transform:translateY(28px);transition:all .7s ease}
+    .reveal.active{opacity:1;transform:translateY(0)}
+
+    @media (max-width: 1080px){
+      .hero-wrap,.admission-grid{grid-template-columns:1fr}
+      .stats{grid-template-columns:repeat(2,1fr)}
+      .slideshow{height:480px}
+      .info-grid,.leaders{grid-template-columns:1fr}
+    }
+
+    @media (max-width: 860px){
+      .menu-btn{display:block}
+      .nav-links{
+        position:absolute;
+        top:78px;
+        left:0;
+        right:0;
+        background:#fff;
+        border-bottom:1px solid rgba(15,76,151,.08);
+        flex-direction:column;
+        align-items:flex-start;
+        padding:18px 4%;
+        gap:10px;
+        display:none;
+      }
+      .nav-links.open{display:flex}
+      .course-grid{grid-template-columns:1fr}
+      .footer-wrap{grid-template-columns:1fr}
+    }
+
+    @media (max-width: 640px){
+      .section{padding:68px 0}
+      .hero{padding-top:18px}
+      .hero-text h1{font-size:2.2rem}
+      .stats{grid-template-columns:1fr 1fr;gap:12px}
+      .stat-card{padding:16px 12px}
+      .slideshow{height:390px}
+      .course-content,.leader-card,.admission-card,.contact-card,.info-card{padding:22px}
+      .course-head{padding:22px}
+      .welcome-content p{font-size:.98rem}
+    }
+
+    @media (max-width: 480px){
+      .stats{grid-template-columns:1fr}
+      .slideshow{height:330px}
+      .btn{width:100%}
+      .hero-actions{flex-direction:column}
+      .brand-text h2{font-size:1rem}
+      .brand-text span{font-size:.84rem}
+    }
+  </style>
+</head>
+<body>
+  <div class="welcome-screen" id="welcomeScreen">
+    <div class="welcome-content">
+      <div class="welcome-logo">
+        <img src="https://i.imgur.com/cObudU4.jpeg" />
+      </div>
+      <h1>Welcome to CNAS College</h1>
+      <p>College of National Academic Square — a modern academic destination in Kathmandu for high school, bachelor, and diploma education with industry-focused learning.</p>
+    </div>
+  </div>
+
+  <header>
+    <div class="container nav">
+      <a href="#home" class="brand">
+        <div class="brand-logo">
+          <img src="https://i.imgur.com/cObudU4.jpeg" />
+        </div>
+        <div class="brand-text">
+          <h2>CNAS College</h2>
+          <span>College of National Academic Square</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#about">About</a>
+        <a href="#programs">Programs</a>
+        <a href="#leadership">Leadership</a>
+        <a href="#admission">Admissions</a>
+        <a href="#contact">Contact</a>
+        <a href="#admission" class="nav-cta"></a>
+      </nav>
+
+      <button class="menu-btn" id="menuBtn">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-wrap">
+        <div class="hero-text reveal">
+          <span class="pill">Orange • White • Blue • Future-Ready Education</span>
+          <h1>Shaping Ambition into <span>Academic Excellence</span></h1>
+          <p>
+            College of National Academic Square (CNAS) is located in Kathmandu Metropolitan City–32, Bagmati, Nepal. The college is designed as a comprehensive academic institution offering <strong>High School</strong>, <strong>Bachelor's</strong>, and <strong>Diploma</strong> programs with a practical, student-centered, and career-focused learning environment.
+          </p>
+          <div class="hero-actions">
+            <a href="#programs" class="btn btn-primary">Explore Programs</a>
+            <a href="#contact" class="btn btn-secondary">Visit Campus</a>
+          </div>
+          <div class="stats">
+            <div class="stat-card">
+              <h3>3</h3>
+              <p>Academic Levels Offered</p>
+            </div>
+            <div class="stat-card">
+              <h3>10+</h3>
+              <p>Current & Planned Programs</p>
+            </div>
+            <div class="stat-card">
+              <h3>32</h3>
+              <p>Located at Kathmandu Metro Ward 32</p>
+            </div>
+            <div class="stat-card">
+              <h3>100%</h3>
+              <p>Responsive Design for All Devices</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal">
+          <div class="slideshow-card">
+            <div class="slideshow" id="slideshow">
+              <div class="slide active">
+                <img src="https://i.imgur.com/JvvMtS5.jpeg" />
+                <div class="slide-overlay">
+                  <h3>Inspiring Learning Environment</h3>
+                  <p>Modern classrooms, collaborative spaces, and a welcoming atmosphere designed to support academic growth.</p>
+                </div>
+              </div>
+              <div class="slide">
+                <img src="https://i.imgur.com/cObudU4.jpeg" />
+                <div class="slide-overlay">
+                  <h3>Student-Centered Education</h3>
+                  <p>Interactive teaching methods, supportive faculty, and practical learning pathways that build confidence and competence.</p>
+                </div>
+              </div>
+              <div class="slide">
+                <img src="https://i.imgur.com/HWfW0bJ.jpeg" />
+                <div class="slide-overlay">
+                  <h3>Academic & Career Readiness</h3>
+                  <p>Programs designed to develop communication, technical skills, leadership, and real-world problem solving.</p>
+                </div>
+              </div>
+              <div class="slide">
+                <img src="https://i.imgur.com/nG4C9JK.jpeg" />
+                <div class="slide-overlay">
+                  <h3>Progressive Institutional Vision</h3>
+                  <p>CNAS combines strong academic foundations with future plans in science, sports science, and skill development.</p>
+                </div>
+              </div>
+              <div class="slide">
+                <img src="https://i.imgur.com/Zj7ieky.jpeg" />
+                <div class="slide-overlay">
+                  <h3>Practical, Professional, Dynamic</h3>
+                  <p>From management to hospitality and from humanities to applied training, CNAS aims to prepare students for life and work.</p>
+                </div>
+              </div>
+              <div class="dots" id="dots"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container">
+        <span class="pill reveal">About CNAS</span>
+        <h2 class="section-title reveal">A Multi-Level Institution Built for Academic Growth</h2>
+        <p class="section-subtitle reveal">
+          CNAS College is envisioned as a modern academic institution where students can pursue nationally recognized education, practical training, and professional development in one integrated learning environment. The institution combines high school studies, university-level education, and industry-oriented diploma training so learners can grow from foundation to specialization.
+        </p>
+
+        <div class="info-grid">
+          <div class="info-card reveal">
+            <h3>Our Mission</h3>
+            <p>To deliver accessible, relevant, and high-quality education that strengthens academic capability, employability, and character through innovation, discipline, and opportunity.</p>
+          </div>
+          <div class="info-card reveal">
+            <h3>Our Vision</h3>
+            <p>To become a respected center of academic excellence in Kathmandu by connecting education with leadership, skills, global standards, and future-oriented programs.</p>
+          </div>
+          <div class="info-card reveal">
+            <h3>Our Promise</h3>
+            <p>At CNAS, students are guided through supportive teaching, modern learning methods, practical exposure, and a campus culture that values growth, confidence, and achievement.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="programs">
+      <div class="container">
+        <span class="pill reveal">Academic Programs</span>
+        <h2 class="section-title reveal">Programs Designed for Study, Skill, and Success</h2>
+        <p class="section-subtitle reveal">
+          CNAS College offers three major academic pathways — High School, Bachelor's Programs, and Diploma Courses. Each pathway is structured to balance academic quality, practical learning, and future progression.
+        </p>
+
+        <div class="courses-wrap">
+          <div class="course-block reveal">
+            <div class="course-head">
+              <h3>+2 High School Programs</h3>
+              <span>Under National Examination Board (NEB)</span>
+            </div>
+            <div class="course-content">
+              <div class="course-grid">
+                <div class="course-card">
+                  <h4>Hotel Management</h4>
+                  <p>Designed for students interested in hospitality, food service, front office operations, tourism support, guest relations, and service leadership. This stream blends management principles with practical understanding of hotel and hospitality environments.</p>
+                  <span class="tag">Hospitality</span><span class="tag">Service Skills</span><span class="tag">Career Focus</span>
+                </div>
+                <div class="course-card">
+                  <h4>Travel and Mountaineering</h4>
+                  <p>This major introduces students to tourism, adventure travel, destination understanding, guiding awareness, mountain culture, travel operations, and communication skills useful for Nepal’s tourism and outdoor sectors.</p>
+                  <span class="tag">Tourism</span><span class="tag">Adventure</span><span class="tag">Nepal Context</span>
+                </div>
+                <div class="course-card">
+                  <h4>Computer Science</h4>
+                  <p>Built for students who want strong digital foundations in computing, problem solving, basic programming, information systems, and technology literacy. It helps prepare learners for further study in IT, software, data, and digital careers.</p>
+                  <span class="tag">Technology</span><span class="tag">Logic</span><span class="tag">Digital Skills</span>
+                </div>
+                <div class="course-card">
+                  <h4>Business Studies</h4>
+                  <p>A balanced stream for students aiming to build fundamentals in commerce, entrepreneurship, accounting, management, communication, and organizational understanding for future business and administrative careers.</p>
+                  <span class="tag">Management</span><span class="tag">Commerce</span><span class="tag">Entrepreneurship</span>
+                </div>
+                <div class="course-card">
+                  <h4>Future Plan: Science</h4>
+                  <p>CNAS plans to expand into science education to serve students pursuing academic progression in health sciences, engineering foundations, research-focused study, and applied scientific fields.</p>
+                  <span class="tag">Planned Program</span><span class="tag">STEM</span>
+                </div>
+                <div class="course-card">
+                  <h4>Future Plan: Sports Science</h4>
+                  <p>This upcoming direction is intended for students interested in physical performance, sports education, fitness knowledge, coaching concepts, movement science, and athletic development.</p>
+                  <span class="tag">Planned Program</span><span class="tag">Sports Education</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="course-block reveal">
+            <div class="course-head">
+              <h3>Bachelor's Programs</h3>
+              <span>Affiliated with Tribhuvan University (TU)</span>
+            </div>
+            <div class="course-content">
+              <div class="course-grid">
+                <div class="course-card">
+                  <h4>BBS — Bachelor of Business Studies</h4>
+                  <p>BBS is designed to develop students into capable managers and professionals with strong understanding of business principles, organization, finance, accounting, and practical decision making. It is ideal for students who want broad management grounding.</p>
+                  <span class="tag">Business Foundation</span><span class="tag">Management</span>
+                </div>
+                <div class="course-card">
+                  <h4>BBA — Bachelor of Business Administration</h4>
+                  <p>BBA focuses on modern management, leadership, entrepreneurship, organizational behavior, communication, and professional readiness. It suits students seeking dynamic preparation for corporate, administrative, and entrepreneurial careers.</p>
+                  <span class="tag">Leadership</span><span class="tag">Corporate Readiness</span>
+                </div>
+                <div class="course-card">
+                  <h4>BA — Bachelor of Arts</h4>
+                  <p>BA supports broad intellectual growth in humanities and social understanding. It helps students develop analytical thinking, expression, social awareness, and a deeper grasp of culture, society, and public life.</p>
+                  <span class="tag">Humanities</span><span class="tag">Critical Thinking</span>
+                </div>
+                <div class="course-card">
+                  <h4>B.Ed — Bachelor of Education</h4>
+                  <p>B.Ed prepares future educators with foundations in teaching methods, pedagogy, curriculum understanding, classroom practice, and learner development. It is suitable for those who aspire to serve in the education sector.</p>
+                  <span class="tag">Teaching</span><span class="tag">Pedagogy</span>
+                </div>
+                <div class="course-card">
+                  <h4>Future Plan: Bachelor's in Sports Science</h4>
+                  <p>CNAS also envisions a future bachelor-level sports science program focused on sports education, fitness, performance development, athlete support, and professional pathways linked to physical education and applied sports sectors.</p>
+                  <span class="tag">Planned Program</span><span class="tag">Performance Science</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="course-block reveal">
+            <div class="course-head">
+              <h3>Diploma & Skill Development Programs</h3>
+              <span>Short-Term and Long-Term Professional Training</span>
+            </div>
+            <div class="course-content">
+              <div class="course-grid">
+                <div class="course-card">
+                  <h4>Short-Term: Barista Training</h4>
+                  <p>Students learn beverage basics, coffee preparation, machine handling, café workflow, hygiene, customer service, and presentation skills useful for café and hospitality careers.</p>
+                  <span class="tag">Short Term</span><span class="tag">Hospitality Skill</span>
+                </div>
+                <div class="course-card">
+                  <h4>Short-Term: Bartender / Beverage Service</h4>
+                  <p>This course develops beverage service knowledge, professional service etiquette, workstation discipline, hospitality communication, and bar setup awareness for food and beverage environments.</p>
+                  <span class="tag">Short Term</span><span class="tag">Food & Beverage</span>
+                </div>
+                <div class="course-card">
+                  <h4>Short-Term: Mixology</h4>
+                  <p>Focused on beverage creativity, menu awareness, flavor pairing, service presentation, and practical hospitality confidence in modern food and beverage settings.</p>
+                  <span class="tag">Short Term</span><span class="tag">Creative Service</span>
+                </div>
+                <div class="course-card">
+                  <h4>Short-Term: Front Office Assistant</h4>
+                  <p>Builds skills in guest reception, bookings, communication, basic documentation, service handling, and front desk professionalism for hotels and service centers.</p>
+                  <span class="tag">Short Term</span><span class="tag">Reception Skills</span>
+                </div>
+                <div class="course-card">
+                  <h4>Short-Term: General Cook / Fast Food / Bakery Support</h4>
+                  <p>Provides practical kitchen exposure in food preparation, safety, hygiene, cooking methods, and service timing for entry-level hospitality and culinary employment.</p>
+                  <span class="tag">Short Term</span><span class="tag">Kitchen Training</span>
+                </div>
+                <div class="course-card">
+                  <h4>Long-Term Diploma: Culinary Arts</h4>
+                  <p>A more comprehensive culinary pathway covering kitchen organization, menu planning, food preparation, culinary techniques, presentation, hygiene standards, and professional kitchen discipline.</p>
+                  <span class="tag">Long Term</span><span class="tag">Culinary Focus</span>
+                </div>
+                <div class="course-card">
+                  <h4>Long-Term Diploma: Diploma in Cookery</h4>
+                  <p>Structured for students who want deeper technical and practical understanding of food production, cuisine preparation, workflow efficiency, and employable competence in commercial kitchens.</p>
+                  <span class="tag">Long Term</span><span class="tag">Professional Cookery</span>
+                </div>
+                <div class="course-card">
+                  <h4>Long-Term Diploma: Hospitality Management Pathway</h4>
+                  <p>This pathway combines room division, front office, food and beverage service, kitchen operations, customer handling, and hospitality supervision for broader industry readiness.</p>
+                  <span class="tag">Long Term</span><span class="tag">Hospitality Management</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="leadership">
+      <div class="container">
+        <span class="pill reveal">Leadership Messages</span>
+        <h2 class="section-title reveal">Words from the Academic Leadership</h2>
+        <p class="section-subtitle reveal">
+          At CNAS, leadership is grounded in academic vision, student growth, and institutional responsibility. The following messages reflect the spirit of the college.
+        </p>
+
+        <div class="leaders">
+          <div class="leader-card reveal">
+            <h3>Message from the Principal</h3>
+            <p>
+              Welcome to College of National Academic Square. Our institution is committed to nurturing disciplined, capable, and future-ready students through quality education and practical learning. We believe education should not only prepare students for examinations, but also for responsibility, confidence, service, and leadership in society. At CNAS, we strive to create an environment where every learner can discover their strengths and grow with purpose.
+            </p>
+            <div class="leader-sign">Bimal Silwal<br><span>Principal</span></div>
+          </div>
+          <div class="leader-card reveal">
+            <h3>Message from the Vice Principal</h3>
+            <p>
+              CNAS stands for progress, opportunity, and academic transformation. We are proud to support students through a learning journey that values innovation, discipline, communication, and skill development. Our goal is to connect education with real life, helping students become knowledgeable, employable, and confident in their chosen path. We warmly welcome students and families to be a part of this growing academic community.
+            </p>
+            <div class="leader-sign">Basant Phuyal<br><span>Vice Principal</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="admission">
+      <div class="container">
+        <span class="pill reveal">Admissions & Contact</span>
+        <h2 class="section-title reveal">Join CNAS and Build Your Future</h2>
+        <p class="section-subtitle reveal">
+          Whether you are stepping into high school, planning your university journey, or seeking practical diploma training, CNAS provides a flexible and progressive environment for your next step.
+        </p>
+
+        <div class="admission-grid">
+          <div class="admission-card reveal">
+            <h3 style="font-size:1.45rem;color:var(--blue-deep);margin-bottom:18px;">Why Choose CNAS?</h3>
+            <ul class="admission-list">
+              <li><span class="icon">✓</span><span>Integrated academic model with High School, Bachelor's, and Diploma studies under one institution.</span></li>
+              <li><span class="icon">✓</span><span>Industry-relevant pathways in management, hospitality, tourism, computing, and skill-based learning.</span></li>
+              <li><span class="icon">✓</span><span>Student-focused learning culture with academic support, professional guidance, and growth opportunities.</span></li>
+              <li><span class="icon">✓</span><span>Vision to expand into Science and Sports Science, reflecting CNAS's commitment to future education needs.</span></li>
+              <li><span class="icon">✓</span><span>Accessible urban location in Kathmandu Metropolitan City–32, Bagmati, Nepal.</span></li>
+            </ul>
+          </div>
+
+          <div class="contact-card reveal" id="contact">
+            <h3 style="font-size:1.45rem;color:var(--blue-deep);margin-bottom:18px;">Campus Contact Information</h3>
+            <ul class="contact-list">
+              <li><span class="icon">⌂</span><span><strong>Location:</strong> Kathmandu Metropolitan City–32, Bagmati, Nepal</span></li>
+              <li><span class="icon">✆</span><span><strong>Phone:</strong> 01-4612084, +977 980-2373151</span></li>
+              <li><span class="icon">✉</span><span><strong>Email:</strong> info@cnascollege.edu.np</span></li>
+              <li><span class="icon">⏰</span><span><strong>Office Hours:</strong> Monday to Friday, 7:00 AM – 5:00 PM</span></li>
+            </ul>
+
+            <div class="qr-box">
+              <img src="https://i.imgur.com/HPuGaYF.png" alt="QR placeholder" />
+              <p>Scan here for the map location.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-wrap">
+      <div>
+        <h3 style="margin-bottom:10px;font-size:1.3rem;">College of National Academic Square (CNAS)</h3>
+        <p>
+          A modern academic institution in Kathmandu offering high school, bachelor's, and diploma education with a practical and future-oriented approach.
+        </p>
+      </div>
+      <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#programs">Programs</a>
+        <a href="#leadership">Leadership</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+    <div class="container" style="margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,.12);text-align:center;">
+      <p style="color:rgba(255,255,255,.78);">© 2026 CNAS College. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <button class="back-top" id="backTop">↑</button>
+
+  <script>
+    // Welcome screen
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('welcomeScreen').classList.add('hidden');
+      }, 2200);
+    });
+
+    // Mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    menuBtn.addEventListener('click', () => navLinks.classList.toggle('open'));
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    // Slideshow
+    const slides = document.querySelectorAll('.slide');
+    const dotsContainer = document.getElementById('dots');
+    let currentSlide = 0;
+    let sliderInterval;
+
+    slides.forEach((_, index) => {
+      const dot = document.createElement('button');
+      dot.className = 'dot' + (index === 0 ? ' active' : '');
+      dot.addEventListener('click', () => showSlide(index));
+      dotsContainer.appendChild(dot);
+    });
+
+    const dots = document.querySelectorAll('.dot');
+
+    function showSlide(index){
+      slides.forEach(slide => slide.classList.remove('active'));
+      dots.forEach(dot => dot.classList.remove('active'));
+      slides[index].classList.add('active');
+      dots[index].classList.add('active');
+      currentSlide = index;
+    }
+
+    function nextSlide(){
+      currentSlide = (currentSlide + 1) % slides.length;
+      showSlide(currentSlide);
+    }
+
+    function startSlider(){
+      sliderInterval = setInterval(nextSlide, 4000);
+    }
+
+    function resetSlider(){
+      clearInterval(sliderInterval);
+      startSlider();
+    }
+
+    dots.forEach(dot => dot.addEventListener('click', resetSlider));
+    startSlider();
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    reveals.forEach(item => observer.observe(item));
+
+    // Back to top
+    const backTop = document.getElementById('backTop');
+    window.addEventListener('scroll', () => {
+      if(window.scrollY > 500){
+        backTop.classList.add('show');
+      } else {
+        backTop.classList.remove('show');
+      }
+    });
+    backTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
